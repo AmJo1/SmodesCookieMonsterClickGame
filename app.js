@@ -161,11 +161,10 @@ function checkOverLap() {
     let overlapResults = []; // Array to store overlap results
 
     document.querySelectorAll('.cookie').forEach(function(element) {
-        let cookieSelected = element.classList[1];
-        const cookieContainer = document.querySelector('.' + cookieSelected).getBoundingClientRect(); // Simplified concatenation
+        const cookieContainer = element.getBoundingClientRect();
 
         // Calculate the border radius of 50%
-        const cookieRadius = parseInt(getComputedStyle(document.querySelector('.' + cookieSelected)).borderRadius);
+        const cookieRadius = parseInt(getComputedStyle(element).borderRadius);
 
         // Check if any corner of smodesContainer is inside cookieContainer
         const smodesCornersInsideCookieContainer = [
@@ -195,7 +194,6 @@ function checkOverLap() {
                 corner.y <= smodesContainer.bottom
             );
         });
-        let cookieName = `cookie${element[1]}`
 
         // Push the result to the overlapResults array
         overlapResults.push(smodesCornersInsideCookieContainer || cookieCornersInsideSmodesContainer);
@@ -209,41 +207,38 @@ function checkOverLap() {
 
 let cookieScore = 0;
 
-
 const overlapCheck = function () {
-    const overLapResults = checkOverLap();
-    const getScoreCounterText = document.querySelector('.cookieCounterText');
+    const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
 
-    for (let i = 0; i < overLapResults.length || i < 2; i++) {
-        if (overLapResults[i] === true) {
-            console.log(`Cookie ${i + 1} is overlapping`);
+    document.querySelectorAll('.cookie').forEach(function(cookie) {
+        const cookieContainer = cookie.getBoundingClientRect();
 
-            // Remove the cookie directly using its unique identifier
-            const cookieNameForDeletion = `cookie${i + 1}`;
-            const cookieForDeletion = document.querySelector(`.${cookieNameForDeletion}`);
-            if (cookieForDeletion) {
-                cookieForDeletion.parentNode.removeChild(cookieForDeletion);
-            } else {
-                console.log('No elements found for deletion with class:', cookieNameForDeletion);
-            }
+        // Check for overlap between cookie and smodes container
+        const overlap = !(
+            smodesContainer.right < cookieContainer.left ||
+            smodesContainer.left > cookieContainer.right ||
+            smodesContainer.bottom < cookieContainer.top ||
+            smodesContainer.top > cookieContainer.bottom
+        );
 
-            // Work out how to delete the above cookie and regenerate a new cookie
+        if (overlap) {
+            console.log(`Cookie ${cookie.className} is overlapping`);
+
+            // Remove the overlapped cookie
+            cookie.remove();
+
+            // Regenerate a new cookie
             const nextCookieNumber = identifyNextClassCookieNumber();
-            // Generate a new cookie immediately after deleting the existing one
             additionalCookieGenerator(nextCookieNumber);
 
-            console.log(nextCookieNumber);
-
+            // Update cookie score
             cookieScore += 1;
+            const getScoreCounterText = document.querySelector('.cookieCounterText');
             getScoreCounterText.innerText = cookieScore;
             scoreCheck(cookieScore);
         }
-    }
+    });
 };
-
-
-
-
 
 
 const gameMapData = cookieGenerator();
@@ -336,6 +331,3 @@ document.addEventListener('keydown', function (event) {
 
 // countdownTimer();
 // resetSeconds();
-
-
-
