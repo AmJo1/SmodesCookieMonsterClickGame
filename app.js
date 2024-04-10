@@ -1,6 +1,8 @@
 //*********************************Functions*********************************
 
-function countdownTimer() {
+let clockTimer = true
+
+ function countdownTimer() {
     let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
 
     let timer = setInterval(function () {
@@ -16,8 +18,10 @@ function countdownTimer() {
                 console.log(checkClassList.classList)
             }
         }
-        if (getSeconds === 0) {
+        if (parseInt(getSeconds) <= 0) {
             clearInterval(timer);
+            clockTimer = false
+
         }
     }, 1000);
 }
@@ -263,13 +267,14 @@ const getNavSizeHeight = document.querySelector('.navSection').getBoundingClient
 
 // ----Key Down Event Listener----
 
-document.addEventListener('keydown', function (event) {
 
-    // console.log(`Max container width: ${gameMapData[1]}`)
-    // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
-    switch (event.key) {
 
-        //It feels like the checkOverLap is taking the previous position
+
+if (clockTimer === true) {
+    document.addEventListener('keydown', function (event) {
+        // console.log(`Max container width: ${gameMapData[1]}`)
+        // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
+        switch (event.key) {
 
         case 'ArrowUp':
             if((smodesPositionY - smodeSteps) > 0) {
@@ -312,13 +317,14 @@ document.addEventListener('keydown', function (event) {
             break;
 
 
+
         default:
             console.log('no movement');
     }
 
     smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
     overlapCheck()
-
+    countdownTimer()
 
 
 
@@ -327,7 +333,5 @@ document.addEventListener('keydown', function (event) {
 });
 
 
+}
 
-
-// countdownTimer();
-// resetSeconds();
