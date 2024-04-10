@@ -1,430 +1,393 @@
 //*********************************Functions*********************************
 
-
-<<<<<<< HEAD
-let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
-
-let timer = setInterval(function () {
-    getSeconds--;
-    let updateSeconds = document.querySelector('.countdownTime');
-    updateSeconds.innerText = getSeconds;
-
-    if (getSeconds <= 5) {
-        updateSeconds.style.cssText = "color: red; scale: 1.1";
-        const checkClassList = document.querySelector('.countdownTime');
-        if (checkClassList.classList[1] === undefined) {
-            checkClassList.classList.add('activePopOut');
-            console.log(checkClassList.classList)
-            }
-        }
-    if (parseInt(getSeconds) === 0) {
-        clearInterval(timer);
-=======
  function countdownTimer() {
-    let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
+     let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
 
-    let timer = setInterval(function () {
-        getSeconds--;
-        let updateSeconds = document.querySelector('.countdownTime');
-        updateSeconds.innerText = getSeconds;
+     let timer = setInterval(function () {
+         getSeconds--;
+         let updateSeconds = document.querySelector('.countdownTime');
+         updateSeconds.innerText = getSeconds;
 
 
+         console.log("getSeconds as a data type of: " + typeof getSeconds + " and a value of " + getSeconds)
 
-        console.log("getSeconds as a data type of: " + typeof getSeconds + " and a value of " + getSeconds)
 
+         if (parseInt(getSeconds) >= 0) {
 
-        if (parseInt(getSeconds) >= 0) {
+             document.addEventListener('keydown', function (event) {
+                 // console.log(`Max container width: ${gameMapData[1]}`)
+                 // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
+                 switch (event.key) {
 
-            document.addEventListener('keydown', function (event) {
-                // console.log(`Max container width: ${gameMapData[1]}`)
-                // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
-                switch (event.key) {
+                     case 'ArrowUp':
+                         if ((smodesPositionY - smodeSteps) > 0) {
+                             smodesPositionY -= smodeSteps;
+                         } else {
+                             smodesPositionY = 0;
+                         }
+                         break;
 
-                    case 'ArrowUp':
-                        if ((smodesPositionY - smodeSteps) > 0) {
-                            smodesPositionY -= smodeSteps;
-                        } else {
-                            smodesPositionY = 0;
-                        }
-                        break;
 
+                     case 'ArrowDown':
+                         if (smodesPositionY < ((getGameMapHeight * 0.9))) {
+                             smodesPositionY += smodeSteps;
+                         } else {
+                             smodesPositionY = (getGameMapHeight + smodesSize)
+                         }
+                         break;
 
-                    case 'ArrowDown':
-                        if (smodesPositionY < ((getGameMapHeight * 0.9))) {
-                            smodesPositionY += smodeSteps;
-                        } else {
-                            smodesPositionY = (getGameMapHeight + smodesSize)
-                        }
-                        break;
 
+                     case 'ArrowLeft':
+                         if ((smodesPositionX - smodeSteps) > 0) {
+                             smodesPositionX -= smodeSteps;
+                         } else {
+                             smodesPositionX = 0;
+                         }
+                         break;
 
-                    case 'ArrowLeft':
-                        if ((smodesPositionX - smodeSteps) > 0) {
-                            smodesPositionX -= smodeSteps;
-                        } else {
-                            smodesPositionX = 0;
-                        }
-                        break;
 
+                     case 'ArrowRight':
+                         if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
+                             smodesPositionX += smodeSteps;
+                         } else {
+                             smodesPositionX = (getGameMapWidth - smodesSize);
+                         }
 
-                    case 'ArrowRight':
-                        if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
-                            smodesPositionX += smodeSteps;
-                        } else {
-                            smodesPositionX = (getGameMapWidth - smodesSize);
-                        }
+                         break;
 
-                        break;
 
+                     default:
+                         console.log('no movement');
+                 }
 
-                    default:
-                        console.log('no movement');
-                }
+                 smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
+                 overlapCheck()
 
-                smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-                overlapCheck()
 
+                 // Need to create functions that:
+                 //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
+             });
+         }
 
-                // Need to create functions that:
-                //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
-            });
-        }
 
+         if (getSeconds <= 5) {
+             updateSeconds.style.cssText = "color: red; scale: 1.1";
+             const checkClassList = document.querySelector('.countdownTime');
+             if (checkClassList.classList[1] === undefined) {
+                 checkClassList.classList.add('activePopOut');
+                 console.log(checkClassList.classList)
+             }
+         }
+         if (parseInt(getSeconds) <= 0) {
+             clearInterval(timer);
+             let finalTimerCounter = document.querySelector('.countdownTime');
+             finalTimerCounter.classList.remove('activePopOut');
+             updateSeconds.style.cssText = "color: black";
+             finalTimerCounter.innerText = 0;
 
-        if (getSeconds <= 5) {
-            updateSeconds.style.cssText = "color: red; scale: 1.1";
-            const checkClassList = document.querySelector('.countdownTime');
-            if (checkClassList.classList[1] === undefined) {
-                checkClassList.classList.add('activePopOut');
-                console.log(checkClassList.classList)
-            }
-        }
-        if (parseInt(getSeconds) <= 0) {
-            clearInterval(timer);
-            let finalTimerCounter = document.querySelector('.countdownTime');
-            finalTimerCounter.classList.remove('activePopOut');
-            updateSeconds.style.cssText = "color: black";
-            finalTimerCounter.innerText = 0;
+         }
 
->>>>>>> bugfix
-        }
+     }, 1000);
 
-    }, 1000);
 
+     function resetCountdownTimer() {
+         let resetSeconds = document.querySelector('.countdownTime').innerText = 20;
+     }
 
 
-function resetCountdownTimer()
-{
-    let resetSeconds = document.querySelector('.countdownTime').innerText = 20;
-}
+     function cookieGenerator() {
 
+         const getCookie = document.querySelector('.cookie');
 
-function cookieGenerator () {
 
-    const getCookie = document.querySelector('.cookie');
+         //Get Map Data
+         let getGameMapElement = document.querySelector('.gameMap');
+         let getGameMapSize = getGameMapElement.getBoundingClientRect();
+         const getGameMapHeight = getGameMapSize.height;
+         const getGameMapWidth = getGameMapSize.width;
 
 
-    //Get Map Data
-    let getGameMapElement = document.querySelector('.gameMap');
-    let getGameMapSize = getGameMapElement.getBoundingClientRect();
-    const getGameMapHeight = getGameMapSize.height;
-    const getGameMapWidth = getGameMapSize.width;
+         //Get cookie width
+         const cookieSize = getCookie.offsetWidth;
 
+         //Calculate the maximum random position within the map
+         const MaxRandomHeightCookies = getGameMapHeight - cookieSize;
+         const MaxRandomWidthCookies = getGameMapWidth - cookieSize;
 
-    //Get cookie width
-    const cookieSize = getCookie.offsetWidth;
+         //Generate random cookie position on page
+         let cookieRandomHeight = Math.floor(Math.random() * MaxRandomHeightCookies);
+         let cookieRandomWidth = Math.floor(Math.random() * MaxRandomWidthCookies);
 
-    //Calculate the maximum random position within the map
-    const MaxRandomHeightCookies = getGameMapHeight - cookieSize;
-    const MaxRandomWidthCookies = getGameMapWidth - cookieSize;
 
-    //Generate random cookie position on page
-    let cookieRandomHeight = Math.floor(Math.random() * MaxRandomHeightCookies);
-    let cookieRandomWidth = Math.floor(Math.random() * MaxRandomWidthCookies);
+         //move Cookie to a random position on the map.
+         getCookie.style.position = "absolute";
+         getCookie.style.transform = `translate(${cookieRandomWidth}px, ${cookieRandomHeight}px)`;
 
+         return [getGameMapHeight, getGameMapWidth]
+     }
 
-    //move Cookie to a random position on the map.
-    getCookie.style.position = "absolute";
-    getCookie.style.transform = `translate(${cookieRandomWidth}px, ${cookieRandomHeight}px)`;
+     function additionalCookieGenerator(number) {
 
-    return [getGameMapHeight, getGameMapWidth]
-}
+         // Create Cookie Generator
+         const additionalCookie = document.createElement('div');
+         const parentCookieElement = document.querySelector('.gameMap');
+         const uniqueId = `cookie${number}`; // Unique identifier for the cookie
+         additionalCookie.className = `cookie ${uniqueId}`;
+         parentCookieElement.appendChild(additionalCookie);
 
-function additionalCookieGenerator(number) {
+         // Get Map Data
+         let getGameMapElement = document.querySelector('.gameMap');
+         let getGameMapSize = getGameMapElement.getBoundingClientRect();
+         const getGameMapHeight = getGameMapSize.height;
+         const getGameMapWidth = getGameMapSize.width;
 
-    // Create Cookie Generator
-    const additionalCookie = document.createElement('div');
-    const parentCookieElement = document.querySelector('.gameMap');
-    const uniqueId = `cookie${number}`; // Unique identifier for the cookie
-    additionalCookie.className = `cookie ${uniqueId}`;
-    parentCookieElement.appendChild(additionalCookie);
+         // Get cookie width
+         const getCookie = document.querySelector(`.${uniqueId}`);
+         const cookieSize = getCookie.offsetWidth;
 
-    // Get Map Data
-    let getGameMapElement = document.querySelector('.gameMap');
-    let getGameMapSize = getGameMapElement.getBoundingClientRect();
-    const getGameMapHeight = getGameMapSize.height;
-    const getGameMapWidth = getGameMapSize.width;
+         // Calculate the maximum random position within the map
+         const MaxARandomHeightCookies = getGameMapHeight - cookieSize;
+         const MaxARandomWidthCookies = getGameMapWidth - cookieSize;
 
-    // Get cookie width
-    const getCookie = document.querySelector(`.${uniqueId}`);
-    const cookieSize = getCookie.offsetWidth;
+         // Generate random cookie position on page
+         let cookieRandomHeight = Math.floor(Math.random() * MaxARandomHeightCookies);
+         let cookieRandomWidth = Math.floor(Math.random() * MaxARandomWidthCookies);
 
-    // Calculate the maximum random position within the map
-    const MaxARandomHeightCookies = getGameMapHeight - cookieSize;
-    const MaxARandomWidthCookies = getGameMapWidth - cookieSize;
+         // Move Cookie to a random position on the map.
+         getCookie.style.position = "absolute";
+         getCookie.style.transform = `translate(${cookieRandomWidth}px, ${cookieRandomHeight}px)`;
 
-    // Generate random cookie position on page
-    let cookieRandomHeight = Math.floor(Math.random() * MaxARandomHeightCookies);
-    let cookieRandomWidth = Math.floor(Math.random() * MaxARandomWidthCookies);
+         return [getGameMapHeight, getGameMapWidth];
+     }
 
-    // Move Cookie to a random position on the map.
-    getCookie.style.position = "absolute";
-    getCookie.style.transform = `translate(${cookieRandomWidth}px, ${cookieRandomHeight}px)`;
 
-    return [getGameMapHeight, getGameMapWidth];
-}
+     function identifyNextClassCookieNumber() {
+         const listOfCookies = Array.from(document.querySelectorAll('.cookie'));
+         const listOfCookieNames = [];
 
+         // Iterate over each element in the listOfCookies array
+         listOfCookies.forEach(cookie => {
+             // Access the classList property of each element
+             const classes = Array.from(cookie.classList);
+             const cookieClassNumber = parseInt(classes[1].replace(/cookie/g, ""));
+             listOfCookieNames.push(cookieClassNumber);
+         });
 
-function identifyNextClassCookieNumber() {
-    const listOfCookies = Array.from(document.querySelectorAll('.cookie'));
-    const listOfCookieNames = [];
+         listOfCookieNames.sort((a, b) => a - b);
 
-    // Iterate over each element in the listOfCookies array
-    listOfCookies.forEach(cookie => {
-        // Access the classList property of each element
-        const classes = Array.from(cookie.classList);
-        const cookieClassNumber = parseInt(classes[1].replace(/cookie/g, ""));
-        listOfCookieNames.push(cookieClassNumber);
-    });
+         // Find the next available cookie number
+         let nextNumber = 1;
+         for (let i = 0; i < listOfCookieNames.length; i++) {
+             if (listOfCookieNames[i] !== nextNumber) {
+                 // Found a gap in the sequence, so nextNumber is available
+                 break;
+             }
+             nextNumber++;
+         }
 
-    listOfCookieNames.sort((a, b) => a - b);
+         return nextNumber;
+     }
 
-    // Find the next available cookie number
-    let nextNumber = 1;
-    for (let i = 0; i < listOfCookieNames.length; i++) {
-        if (listOfCookieNames[i] !== nextNumber) {
-            // Found a gap in the sequence, so nextNumber is available
-            break;
-        }
-        nextNumber++;
-    }
 
-    return nextNumber;
-}
+     let cookieIncrement = 0
 
+     function scoreCheck(scoreTally) {
+         let cookieCounterIncrease = 2;
 
-let cookieIncrement = 0
+         if (scoreTally % cookieCounterIncrease === 0) {
+             console.log('The score is divisible cleanly by ' + cookieCounterIncrease);
+             let cookieIncrement = scoreTally / cookieCounterIncrease - 1; // Calculate the number of increments
+             console.log('cookie increment: ' + cookieIncrement);
 
-function scoreCheck(scoreTally) {
-    let cookieCounterIncrease = 2;
+             // Get total number of cookies on screen
+             const totalNumberOfCookiesOnScreen = document.querySelectorAll('.cookie').length;
+             console.log('Total Number Of Cookies On-Screen: ' + totalNumberOfCookiesOnScreen);
 
-    if (scoreTally % cookieCounterIncrease === 0) {
-        console.log('The score is divisible cleanly by ' + cookieCounterIncrease);
-        let cookieIncrement = scoreTally / cookieCounterIncrease - 1; // Calculate the number of increments
-        console.log('cookie increment: ' + cookieIncrement);
+             const requiredCookiesOnScreen = cookieIncrement + 1;
+             const increaseCookiesBy = requiredCookiesOnScreen - totalNumberOfCookiesOnScreen;
 
-        // Get total number of cookies on screen
-        const totalNumberOfCookiesOnScreen = document.querySelectorAll('.cookie').length;
-        console.log('Total Number Of Cookies On-Screen: ' + totalNumberOfCookiesOnScreen);
+             console.log('You need to add ' + increaseCookiesBy + ' cookies');
 
-        const requiredCookiesOnScreen = cookieIncrement + 1;
-        const increaseCookiesBy = requiredCookiesOnScreen - totalNumberOfCookiesOnScreen;
-
-        console.log('You need to add ' + increaseCookiesBy + ' cookies');
-
-        for (let i = 0; i < increaseCookiesBy; i++) {
-            const nextCookieNumber = identifyNextClassCookieNumber();
-            additionalCookieGenerator(nextCookieNumber);
-        }
-    }
-}
-
-
-
+             for (let i = 0; i < increaseCookiesBy; i++) {
+                 const nextCookieNumber = identifyNextClassCookieNumber();
+                 additionalCookieGenerator(nextCookieNumber);
+             }
+         }
+     }
 
 
 // The number passed in is used to create the classname for each new cookie element.
 
 
+     function checkOverLap() {
+         const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
+         let overlapResults = []; // Array to store overlap results
 
-function checkOverLap() {
-    const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
-    let overlapResults = []; // Array to store overlap results
+         document.querySelectorAll('.cookie').forEach(function (element) {
+             const cookieContainer = element.getBoundingClientRect();
 
-    document.querySelectorAll('.cookie').forEach(function(element) {
-        const cookieContainer = element.getBoundingClientRect();
+             // Calculate the border radius of 50%
+             const cookieRadius = parseInt(getComputedStyle(element).borderRadius);
 
-        // Calculate the border radius of 50%
-        const cookieRadius = parseInt(getComputedStyle(element).borderRadius);
+             // Check if any corner of smodesContainer is inside cookieContainer
+             const smodesCornersInsideCookieContainer = [
+                 {x: smodesContainer.left, y: smodesContainer.top},
+                 {x: smodesContainer.right, y: smodesContainer.top},
+                 {x: smodesContainer.left, y: smodesContainer.bottom},
+                 {x: smodesContainer.right, y: smodesContainer.bottom}
+             ].some(corner => {
+                 // Adjusting for border-radius of cookieContainer
+                 const distanceX = Math.max(Math.abs(corner.x - cookieContainer.left - cookieRadius), Math.abs(corner.x - cookieContainer.right + cookieRadius));
+                 const distanceY = Math.max(Math.abs(corner.y - cookieContainer.top - cookieRadius), Math.abs(corner.y - cookieContainer.bottom + cookieRadius));
+                 const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                 return distance <= cookieRadius;
+             });
 
-        // Check if any corner of smodesContainer is inside cookieContainer
-        const smodesCornersInsideCookieContainer = [
-            { x: smodesContainer.left, y: smodesContainer.top },
-            { x: smodesContainer.right, y: smodesContainer.top },
-            { x: smodesContainer.left, y: smodesContainer.bottom },
-            { x: smodesContainer.right, y: smodesContainer.bottom }
-        ].some(corner => {
-            // Adjusting for border-radius of cookieContainer
-            const distanceX = Math.max(Math.abs(corner.x - cookieContainer.left - cookieRadius), Math.abs(corner.x - cookieContainer.right + cookieRadius));
-            const distanceY = Math.max(Math.abs(corner.y - cookieContainer.top - cookieRadius), Math.abs(corner.y - cookieContainer.bottom + cookieRadius));
-            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-            return distance <= cookieRadius;
-        });
+             // Check if any corner of cookieContainer is inside smodesContainer
+             const cookieCornersInsideSmodesContainer = [
+                 {x: cookieContainer.left, y: cookieContainer.top},
+                 {x: cookieContainer.right, y: cookieContainer.top},
+                 {x: cookieContainer.left, y: cookieContainer.bottom},
+                 {x: cookieContainer.right, y: cookieContainer.bottom}
+             ].some(corner => {
+                 return (
+                     corner.x >= smodesContainer.left &&
+                     corner.x <= smodesContainer.right &&
+                     corner.y >= smodesContainer.top &&
+                     corner.y <= smodesContainer.bottom
+                 );
+             });
 
-        // Check if any corner of cookieContainer is inside smodesContainer
-        const cookieCornersInsideSmodesContainer = [
-            { x: cookieContainer.left, y: cookieContainer.top },
-            { x: cookieContainer.right, y: cookieContainer.top },
-            { x: cookieContainer.left, y: cookieContainer.bottom },
-            { x: cookieContainer.right, y: cookieContainer.bottom }
-        ].some(corner => {
-            return (
-                corner.x >= smodesContainer.left &&
-                corner.x <= smodesContainer.right &&
-                corner.y >= smodesContainer.top &&
-                corner.y <= smodesContainer.bottom
-            );
-        });
+             // Push the result to the overlapResults array
+             overlapResults.push(smodesCornersInsideCookieContainer || cookieCornersInsideSmodesContainer);
+         });
 
-        // Push the result to the overlapResults array
-        overlapResults.push(smodesCornersInsideCookieContainer || cookieCornersInsideSmodesContainer);
-    });
+         // Return the overlapResults array
+         return overlapResults;
 
-    // Return the overlapResults array
-    return overlapResults;
-
-}
-
-
-let cookieScore = 0;
-
-const overlapCheck = function () {
-    const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
-
-    document.querySelectorAll('.cookie').forEach(function(cookie) {
-        const cookieContainer = cookie.getBoundingClientRect();
-
-        // Check for overlap between cookie and smodes container
-        const overlap = !(
-            smodesContainer.right < cookieContainer.left ||
-            smodesContainer.left > cookieContainer.right ||
-            smodesContainer.bottom < cookieContainer.top ||
-            smodesContainer.top > cookieContainer.bottom
-        );
-
-        if (overlap) {
-            console.log(`Cookie ${cookie.className} is overlapping`);
-
-            // Remove the overlapped cookie
-            cookie.remove();
-
-            // Regenerate a new cookie
-            const nextCookieNumber = identifyNextClassCookieNumber();
-            additionalCookieGenerator(nextCookieNumber);
-
-            // Update cookie score
-            cookieScore += 1;
-            const getScoreCounterText = document.querySelector('.cookieCounterText');
-            getScoreCounterText.innerText = cookieScore;
-            scoreCheck(cookieScore);
-        }
-    });
-};
+     }
 
 
-const gameMapData = cookieGenerator();
+     let cookieScore = 0;
+
+     const overlapCheck = function () {
+         const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
+
+         document.querySelectorAll('.cookie').forEach(function (cookie) {
+             const cookieContainer = cookie.getBoundingClientRect();
+
+             // Check for overlap between cookie and smodes container
+             const overlap = !(
+                 smodesContainer.right < cookieContainer.left ||
+                 smodesContainer.left > cookieContainer.right ||
+                 smodesContainer.bottom < cookieContainer.top ||
+                 smodesContainer.top > cookieContainer.bottom
+             );
+
+             if (overlap) {
+                 console.log(`Cookie ${cookie.className} is overlapping`);
+
+                 // Remove the overlapped cookie
+                 cookie.remove();
+
+                 // Regenerate a new cookie
+                 const nextCookieNumber = identifyNextClassCookieNumber();
+                 additionalCookieGenerator(nextCookieNumber);
+
+                 // Update cookie score
+                 cookieScore += 1;
+                 const getScoreCounterText = document.querySelector('.cookieCounterText');
+                 getScoreCounterText.innerText = cookieScore;
+                 scoreCheck(cookieScore);
+             }
+         });
+     };
+
+
+     const gameMapData = cookieGenerator();
 
 
 //*********************************Game Logic*********************************
 
 // ----Move Smodes----
 
-const smodes = document.querySelector('.smodes')
-const smodesSize = smodes.offsetWidth;
+     const smodes = document.querySelector('.smodes')
+     const smodesSize = smodes.offsetWidth;
 
-let smodesPositionX = 0;
-let smodesPositionY = 0;
-const smodeSteps = 35;
+     let smodesPositionX = 0;
+     let smodesPositionY = 0;
+     const smodeSteps = 35;
 
-const getGameMapHeight = gameMapData[0];
-const getGameMapWidth = gameMapData[1];
+     const getGameMapHeight = gameMapData[0];
+     const getGameMapWidth = gameMapData[1];
 
-const getNavSizeHeight = document.querySelector('.navSection').getBoundingClientRect().height;
+     const getNavSizeHeight = document.querySelector('.navSection').getBoundingClientRect().height;
 
 
 // ----Key Down Event Listener----
 
-<<<<<<< HEAD
 
-    document.addEventListener('keydown', function (event) {
+     document.addEventListener('keydown', function (event) {
 
-        // console.log(`Max container width: ${gameMapData[1]}`)
-        // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
-        switch (event.key) {
+         // console.log(`Max container width: ${gameMapData[1]}`)
+         // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
+         switch (event.key) {
 
-            //It feels like the checkOverLap is taking the previous position
+             //It feels like the checkOverLap is taking the previous position
 
-            case 'ArrowUp':
-                if((smodesPositionY - smodeSteps) > 0) {
-                    smodesPositionY -= smodeSteps;
-                }
-                else {
-                    smodesPositionY = 0;
-                }
-                break;
+             case 'ArrowUp':
+                 if ((smodesPositionY - smodeSteps) > 0) {
+                     smodesPositionY -= smodeSteps;
+                 } else {
+                     smodesPositionY = 0;
+                 }
+                 break;
 
 
-            case 'ArrowDown':
-                if(smodesPositionY < ((getGameMapHeight * 0.9))) {
-                    smodesPositionY += smodeSteps;
-                }
-                else {
-                    smodesPositionY = (getGameMapHeight + smodesSize)
-                }
-                break;
+             case 'ArrowDown':
+                 if (smodesPositionY < ((getGameMapHeight * 0.9))) {
+                     smodesPositionY += smodeSteps;
+                 } else {
+                     smodesPositionY = (getGameMapHeight + smodesSize)
+                 }
+                 break;
 
 
-            case 'ArrowLeft':
-                if((smodesPositionX  - smodeSteps) > 0) {
-                    smodesPositionX -= smodeSteps;
-                }
-                else {
-                    smodesPositionX = 0;
-                }
-                break;
+             case 'ArrowLeft':
+                 if ((smodesPositionX - smodeSteps) > 0) {
+                     smodesPositionX -= smodeSteps;
+                 } else {
+                     smodesPositionX = 0;
+                 }
+                 break;
 
 
-            case 'ArrowRight':
-                if(smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
-                    smodesPositionX += smodeSteps;
-                }
-                else {
-                    smodesPositionX = (getGameMapWidth - smodesSize);
-                }
-=======
->>>>>>> bugfix
-
-                break;
+             case 'ArrowRight':
+                 if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
+                     smodesPositionX += smodeSteps;
+                 } else {
+                     smodesPositionX = (getGameMapWidth - smodesSize);
+                 }
 
 
-            default:
-                console.log('no movement');
-        }
+                 break;
 
-<<<<<<< HEAD
-        smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-        overlapCheck()
-        countdownTimer()
+
+             default:
+                 console.log('no movement');
+         }
+
+
+         smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
+         overlapCheck()
+         countdownTimer()
+
+     })
+ }
 
 
 
         // Need to create functions that:
         //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
-    });
-=======
 
-
-
-countdownTimer()
->>>>>>> bugfix
 
