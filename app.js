@@ -1,26 +1,26 @@
 //*********************************Functions*********************************
 
-function countdownTimer() {
-    let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
 
-    let timer = setInterval(function () {
-        getSeconds--;
-        let updateSeconds = document.querySelector('.countdownTime');
-        updateSeconds.innerText = getSeconds;
+let getSeconds = parseInt(document.querySelector('.countdownTime').innerText);
 
-        if (getSeconds <= 5) {
-            updateSeconds.style.cssText = "color: red; scale: 1.1";
-            const checkClassList = document.querySelector('.countdownTime');
-            if (checkClassList.classList[1] === undefined) {
-                checkClassList.classList.add('activePopOut');
-                console.log(checkClassList.classList)
+let timer = setInterval(function () {
+    getSeconds--;
+    let updateSeconds = document.querySelector('.countdownTime');
+    updateSeconds.innerText = getSeconds;
+
+    if (getSeconds <= 5) {
+        updateSeconds.style.cssText = "color: red; scale: 1.1";
+        const checkClassList = document.querySelector('.countdownTime');
+        if (checkClassList.classList[1] === undefined) {
+            checkClassList.classList.add('activePopOut');
+            console.log(checkClassList.classList)
             }
         }
-        if (getSeconds === 0) {
-            clearInterval(timer);
+    if (parseInt(getSeconds) === 0) {
+        clearInterval(timer);
         }
     }, 1000);
-}
+
 
 function resetCountdownTimer()
 {
@@ -263,71 +263,67 @@ const getNavSizeHeight = document.querySelector('.navSection').getBoundingClient
 
 // ----Key Down Event Listener----
 
-document.addEventListener('keydown', function (event) {
 
-    // console.log(`Max container width: ${gameMapData[1]}`)
-    // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
-    switch (event.key) {
+    document.addEventListener('keydown', function (event) {
 
-        //It feels like the checkOverLap is taking the previous position
+        // console.log(`Max container width: ${gameMapData[1]}`)
+        // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
+        switch (event.key) {
 
-        case 'ArrowUp':
-            if((smodesPositionY - smodeSteps) > 0) {
-                smodesPositionY -= smodeSteps;
-            }
-            else {
-                smodesPositionY = 0;
-            }
-            break;
+            //It feels like the checkOverLap is taking the previous position
 
-
-        case 'ArrowDown':
-            if(smodesPositionY < ((getGameMapHeight * 0.9))) {
-                smodesPositionY += smodeSteps;
-            }
-            else {
-                smodesPositionY = (getGameMapHeight + smodesSize)
-            }
-            break;
+            case 'ArrowUp':
+                if((smodesPositionY - smodeSteps) > 0) {
+                    smodesPositionY -= smodeSteps;
+                }
+                else {
+                    smodesPositionY = 0;
+                }
+                break;
 
 
-        case 'ArrowLeft':
-            if((smodesPositionX  - smodeSteps) > 0) {
-                smodesPositionX -= smodeSteps;
-            }
-            else {
-                smodesPositionX = 0;
-            }
-            break;
+            case 'ArrowDown':
+                if(smodesPositionY < ((getGameMapHeight * 0.9))) {
+                    smodesPositionY += smodeSteps;
+                }
+                else {
+                    smodesPositionY = (getGameMapHeight + smodesSize)
+                }
+                break;
 
 
-        case 'ArrowRight':
-            if(smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
-                smodesPositionX += smodeSteps;
-            }
-            else {
-                smodesPositionX = (getGameMapWidth - smodesSize);
-            }
-
-            break;
-
-
-        default:
-            console.log('no movement');
-    }
-
-    smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-    overlapCheck()
+            case 'ArrowLeft':
+                if((smodesPositionX  - smodeSteps) > 0) {
+                    smodesPositionX -= smodeSteps;
+                }
+                else {
+                    smodesPositionX = 0;
+                }
+                break;
 
 
+            case 'ArrowRight':
+                if(smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
+                    smodesPositionX += smodeSteps;
+                }
+                else {
+                    smodesPositionX = (getGameMapWidth - smodesSize);
+                }
+
+                break;
 
 
-    // Need to create functions that:
-    //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
-});
+            default:
+                console.log('no movement');
+        }
+
+        smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
+        overlapCheck()
+        countdownTimer()
 
 
 
+        // Need to create functions that:
+        //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
+    });
 
-// countdownTimer();
-// resetSeconds();
