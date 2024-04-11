@@ -14,64 +14,6 @@
         console.log("getSeconds as a data type of: " + typeof getSeconds)
 
 
-        if (parseInt(getSeconds) >= 0) {
-
-            document.addEventListener('keydown', function (event) {
-                // console.log(`Max container width: ${gameMapData[1]}`)
-                // console.log(`position X: ${smodesPositionX}, position Y: ${smodesPositionY}`)
-                switch (event.key) {
-
-                    case 'ArrowUp':
-                        if ((smodesPositionY - smodeSteps) > 0) {
-                            smodesPositionY -= smodeSteps;
-                        } else {
-                            smodesPositionY = 0;
-                        }
-                        break;
-
-
-                    case 'ArrowDown':
-                        if (smodesPositionY < ((getGameMapHeight * 0.9))) {
-                            smodesPositionY += smodeSteps;
-                        } else {
-                            smodesPositionY = (getGameMapHeight + smodesSize)
-                        }
-                        break;
-
-
-                    case 'ArrowLeft':
-                        if ((smodesPositionX - smodeSteps) > 0) {
-                            smodesPositionX -= smodeSteps;
-                        } else {
-                            smodesPositionX = 0;
-                        }
-                        break;
-
-
-                    case 'ArrowRight':
-                        if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
-                            smodesPositionX += smodeSteps;
-                        } else {
-                            smodesPositionX = (getGameMapWidth - smodesSize);
-                        }
-
-                        break;
-
-
-                    default:
-                        console.log('no movement');
-                }
-
-                smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-                overlapCheck()
-
-
-                // Need to create functions that:
-                //  Counter+1, resets timer, deletes the current cookie, and generates a new cookie
-            });
-        }
-
-
         if (getSeconds <= 5) {
             updateSeconds.style.cssText = "color: red; scale: 1.1";
             const checkClassList = document.querySelector('.countdownTime');
@@ -334,7 +276,55 @@ const getNavSizeHeight = document.querySelector('.navSection').getBoundingClient
 
 // ----Key Down Event Listener----
 
+document.addEventListener('keydown', function (event) {
+    switch (event.key) {
 
+        case 'ArrowUp':
+            if ((smodesPositionY - smodeSteps) > 0) {
+                smodesPositionY -= smodeSteps;
+            } else {
+                smodesPositionY = 0;
+            }
+            break;
+
+
+        case 'ArrowDown':
+            if (smodesPositionY < ((getGameMapHeight * 0.9))) {
+                smodesPositionY += smodeSteps;
+            } else {
+                smodesPositionY = (getGameMapHeight + smodesSize)
+            }
+            break;
+
+
+        case 'ArrowLeft':
+            if ((smodesPositionX - smodeSteps) > 0) {
+                smodesPositionX -= smodeSteps;
+            } else {
+                smodesPositionX = 0;
+            }
+            break;
+
+
+        case 'ArrowRight':
+            if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
+                smodesPositionX += smodeSteps;
+            } else {
+                smodesPositionX = (getGameMapWidth - smodesSize);
+            }
+
+            break;
+
+
+        default:
+            console.log('no movement');
+    }
+
+    smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
+    overlapCheck()
+
+
+});
 
 
 
