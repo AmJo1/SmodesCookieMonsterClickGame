@@ -224,38 +224,47 @@ function checkOverLap() {
 
 let cookieScore = 0;
 
+
 const overlapCheck = function () {
-    const smodesContainer = document.querySelector('.smodes').getBoundingClientRect();
+    const smodesContainer = document.querySelector('.smodes');
 
-    document.querySelectorAll('.cookie').forEach(function(cookie) {
-        const cookieContainer = cookie.getBoundingClientRect();
+    if (smodesContainer) {
+        const smodesRect = smodesContainer.getBoundingClientRect(); // Get bounding rectangle
 
-        // Check for overlap between cookie and smodes container
-        const overlap = !(
-            smodesContainer.right < cookieContainer.left ||
-            smodesContainer.left > cookieContainer.right ||
-            smodesContainer.bottom < cookieContainer.top ||
-            smodesContainer.top > cookieContainer.bottom
-        );
+        document.querySelectorAll('.cookie').forEach(function(cookie) {
+            const cookieContainer = cookie.getBoundingClientRect();
 
-        if (overlap) {
-            //console.log(`Cookie ${cookie.className} is overlapping`);
+            // Check if cookieContainer is not null or undefined
+            if (cookieContainer) {
+                // Check for overlap between cookie and smodes container
+                const overlap = !(
+                    smodesRect.right < cookieContainer.left ||
+                    smodesRect.left > cookieContainer.right ||
+                    smodesRect.bottom < cookieContainer.top ||
+                    smodesRect.top > cookieContainer.bottom
+                );
 
-            // Remove the overlapped cookie
-            cookie.remove();
+                if (overlap) {
+                    // Remove the overlapped cookie
+                    cookie.remove();
 
-            // Regenerate a new cookie
-            const nextCookieNumber = identifyNextClassCookieNumber();
-            additionalCookieGenerator(nextCookieNumber);
+                    // Regenerate a new cookie
+                    const nextCookieNumber = identifyNextClassCookieNumber();
+                    additionalCookieGenerator(nextCookieNumber);
 
-            // Update cookie score
-            cookieScore += 1;
-            const getScoreCounterText = document.querySelector('.cookieCounterText');
-            getScoreCounterText.innerText = cookieScore;
-            scoreCheck(cookieScore);
-        }
-    });
+                    // Update cookie score
+                    cookieScore += 1;
+                    const getScoreCounterText = document.querySelector('.cookieCounterText');
+                    if (getScoreCounterText) {
+                        getScoreCounterText.innerText = cookieScore;
+                        scoreCheck(cookieScore);
+                    }
+                }
+            }
+        });
+    }
 };
+
 
 
 const gameMapData = cookieGenerator();
@@ -277,63 +286,79 @@ const getGameMapWidth = gameMapData[1];
 
 const getNavSizeHeight = document.querySelector('.navSection').getBoundingClientRect().height;
 
+function keyPress() {
+    // ----Key Down Event Listener----
+    if (smodes.classList.contains("smodes")) {
+        document.addEventListener('keydown', function (event) {
+            switch (event.key) {
 
-// ----Key Down Event Listener----
+                case 'ArrowUp':
+                    if ((smodesPositionY - smodeSteps) > 0) {
+                        smodesPositionY -= smodeSteps;
+                    } else {
+                        smodesPositionY = 0;
+                    }
+                    break;
 
-document.addEventListener('keydown', function (event) {
-    switch (event.key) {
 
-        case 'ArrowUp':
-            if ((smodesPositionY - smodeSteps) > 0) {
-                smodesPositionY -= smodeSteps;
-            } else {
-                smodesPositionY = 0;
+                case 'ArrowDown':
+                    if (smodesPositionY < ((getGameMapHeight * 0.9))) {
+                        smodesPositionY += smodeSteps;
+                    } else {
+                        smodesPositionY = (getGameMapHeight + smodesSize)
+                    }
+                    break;
+
+
+                case 'ArrowLeft':
+                    if ((smodesPositionX - smodeSteps) > 0) {
+                        smodesPositionX -= smodeSteps;
+                    } else {
+                        smodesPositionX = 0;
+                    }
+                    break;
+
+
+                case 'ArrowRight':
+                    if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
+                        smodesPositionX += smodeSteps;
+                    } else {
+                        smodesPositionX = (getGameMapWidth - smodesSize);
+                    }
+
+                    break;
+
+
+                default:
+                    console.log('no movement');
             }
-            break;
+
+            smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
+            overlapCheck()
 
 
-        case 'ArrowDown':
-            if (smodesPositionY < ((getGameMapHeight * 0.9))) {
-                smodesPositionY += smodeSteps;
-            } else {
-                smodesPositionY = (getGameMapHeight + smodesSize)
-            }
-            break;
+        });
 
-
-        case 'ArrowLeft':
-            if ((smodesPositionX - smodeSteps) > 0) {
-                smodesPositionX -= smodeSteps;
-            } else {
-                smodesPositionX = 0;
-            }
-            break;
-
-
-        case 'ArrowRight':
-            if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
-                smodesPositionX += smodeSteps;
-            } else {
-                smodesPositionX = (getGameMapWidth - smodesSize);
-            }
-
-            break;
-
-
-        default:
-            console.log('no movement');
     }
-
-    smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-    overlapCheck()
+}
 
 
-});
+document.addEventListener("keydown", function (event){
+
+    if (event.key === 's') {
+        // ###########  Landing Page  #############
+
+
+        // ###########  Game Logic ############
+        keyPress()
+        countdownTimer()
+
+
+        // ###########  Game Finish Page ############
 
 
 
+    }
+})
 
-
-
-countdownTimer()
 
