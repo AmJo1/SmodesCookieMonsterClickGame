@@ -9,30 +9,34 @@
         let updateSeconds = document.querySelector('.countdownTime');
         updateSeconds.innerText = getSeconds;
 
+        //getSeconds is the data type of number
+        //console.log("getSeconds as a data type of: " + typeof getSeconds)
 
 
-        console.log("getSeconds as a data type of: " + typeof getSeconds)
-
-
-        if (getSeconds <= 5) {
+        if (getSeconds >0 && getSeconds <= 5) {
             updateSeconds.style.cssText = "color: red; scale: 1.1";
             const checkClassList = document.querySelector('.countdownTime');
             if (checkClassList.classList[1] === undefined) {
                 checkClassList.classList.add('activePopOut');
-                console.log(checkClassList.classList)
+                //console.log(checkClassList.classList) : Checking Class List
             }
         }
-        if (parseInt(getSeconds) <= 0) {
+        if (getSeconds <= 0) {
             clearInterval(timer);
             let finalTimerCounter = document.querySelector('.countdownTime');
             finalTimerCounter.classList.remove('activePopOut');
             updateSeconds.style.cssText = "color: black";
             finalTimerCounter.innerText = 0;
+            smodes.remove()
+            console.log('game has ended. Has smodes disappeared??')
+
 
         }
 
     }, 1000);
+
 }
+
 
 
 function resetCountdownTimer()
@@ -141,18 +145,18 @@ function scoreCheck(scoreTally) {
     let cookieCounterIncrease = 2;
 
     if (scoreTally % cookieCounterIncrease === 0) {
-        console.log('The score is divisible cleanly by ' + cookieCounterIncrease);
+        //console.log('The score is divisible cleanly by ' + cookieCounterIncrease);
         let cookieIncrement = scoreTally / cookieCounterIncrease - 1; // Calculate the number of increments
-        console.log('cookie increment: ' + cookieIncrement);
+        //console.log('cookie increment: ' + cookieIncrement);
 
         // Get total number of cookies on screen
         const totalNumberOfCookiesOnScreen = document.querySelectorAll('.cookie').length;
-        console.log('Total Number Of Cookies On-Screen: ' + totalNumberOfCookiesOnScreen);
+        //console.log('Total Number Of Cookies On-Screen: ' + totalNumberOfCookiesOnScreen);
 
         const requiredCookiesOnScreen = cookieIncrement + 1;
         const increaseCookiesBy = requiredCookiesOnScreen - totalNumberOfCookiesOnScreen;
 
-        console.log('You need to add ' + increaseCookiesBy + ' cookies');
+        //console.log('You need to add ' + increaseCookiesBy + ' cookies');
 
         for (let i = 0; i < increaseCookiesBy; i++) {
             const nextCookieNumber = identifyNextClassCookieNumber();
@@ -235,7 +239,7 @@ const overlapCheck = function () {
         );
 
         if (overlap) {
-            console.log(`Cookie ${cookie.className} is overlapping`);
+            //console.log(`Cookie ${cookie.className} is overlapping`);
 
             // Remove the overlapped cookie
             cookie.remove();
