@@ -37,6 +37,9 @@ const gameMapData = cookieGenerator();
             finalTimerCounter.innerText = 0;
             smodes.classList.remove('smodes')
             console.log('game has ended. Has smodes disappeared??')
+            const getScoreCounterText = document.querySelector('.cookieCounterText');
+            console.log(getScoreCounterText.innerText);
+
 
 
         }
@@ -235,21 +238,25 @@ const getGameMapWidth = gameMapData[1];
 
 const getNavSizeHeight = document.querySelector('.navSection').getBoundingClientRect().height;
 
-function keyPress() {
-    // ----Key Down Event Listener----
-    if (smodes.classList.contains("smodes")) {
-        document.addEventListener('keydown', function (event) {
-            switch (event.key) {
 
+//*********************************Game Logic*********************************
+
+
+// Key Press Event Listener for Arrow Key Movement
+function moveCharacter() {
+    document.addEventListener('keydown', function (event) {
+        const showGameMap = document.querySelector('.gameMap');
+        if (smodes.classList.contains("smodes")) {
+            switch (event.key) {
+                //Smodes is in the class list
                 case 'ArrowUp':
+                    console.log('Arrow Button Pressed')
                     if ((smodesPositionY - smodeSteps) > 0) {
                         smodesPositionY -= smodeSteps;
                     } else {
                         smodesPositionY = 0;
                     }
                     break;
-
-
                 case 'ArrowDown':
                     if (smodesPositionY < ((getGameMapHeight * 0.9))) {
                         smodesPositionY += smodeSteps;
@@ -257,8 +264,6 @@ function keyPress() {
                         smodesPositionY = (getGameMapHeight + smodesSize)
                     }
                     break;
-
-
                 case 'ArrowLeft':
                     if ((smodesPositionX - smodeSteps) > 0) {
                         smodesPositionX -= smodeSteps;
@@ -266,60 +271,59 @@ function keyPress() {
                         smodesPositionX = 0;
                     }
                     break;
-
-
                 case 'ArrowRight':
                     if (smodesPositionX < ((getGameMapWidth * 0.9) - smodesSize)) {
                         smodesPositionX += smodeSteps;
                     } else {
                         smodesPositionX = (getGameMapWidth - smodesSize);
                     }
-
                     break;
-
-
                 default:
                     console.log('no movement');
             }
 
+            // Apply Transform
             smodes.style.transform = `translate(${smodesPositionX}px, ${smodesPositionY}px)`;
-            overlapCheck()
-
-
-        });
-
-    }
+            overlapCheck();
+        }
+    });
 }
 
-//*********************************Game Logic*********************************
+// Key Press Function for Landing Page and Game Finish Page
+function keyPress() {
+    return new Promise((resolve, reject) => {
+        document.addEventListener("keydown", function (event) {
+            switch (event.key) {
+                case 's':
+                    // Landing Page
+                    const showGameMap = document.querySelector('.gameMap');
+                    showGameMap.classList.remove('hidden');
+
+                    const cookieInstructionContainerHidden = document.querySelector('.cookieInstructionContainer');
+                    cookieInstructionContainerHidden.classList.add('hidden');
+
+                    // Resolve the promise when operations are complete
+                    resolve();
+                    break;
+                case 'r':
+                    location.reload();
+                    break;
+                default:
+                    console.log('no key pressed');
+                    break;
+            }
+        });
+    });
+}
 
 
-document.addEventListener("keydown", function (event){
 
-    switch (event.key) {
+// Call keyPress() and then moveCharacter() when its promise resolves
+keyPress().then(() => {
+    setTimeout(function(){
+        moveCharacter();
+        countdownTimer();
+    }, 1)
 
-        case 's':
-        // ###########  Landing Page  #############
-            // Hide landing page
-
-            keyPress()
-            countdownTimer()
-        break;
-
-        case 'r':
-            location.reload()
-            break;
-
-
-        default:
-            console.log('no key pressed');
-            break;
-
-
-
-        // ###########  Game Finish Page ############
-
-    }
-})
-
+});
 
