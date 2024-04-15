@@ -8,6 +8,8 @@
     --preferred-font: 'Helvetica';
     --nav-colour: rgb(30, 124, 30);
     --corner-radius: 10px;
+    --maximum-width: 650px;
+    --star-Wars: 'Star Jedi';
 }
 
 body {
@@ -22,7 +24,7 @@ body {
     width: 90svw;
     height: 90svh;
     border-radius: var(--corner-radius);
-    max-width: 650px;
+    max-width: var(--maximum-width);
 }
 
 .navSection {
@@ -139,11 +141,11 @@ body {
     background-repeat: repeat;
     filter: blendTrans(20%);
     z-index: 100;
-    width: 100%;
+    width: 90%;
     height: 90%;
     border-bottom-left-radius: var(--corner-radius);
     border-bottom-right-radius: var(--corner-radius);
-
+    max-width: var(--maximum-width);
 }
 
 
@@ -160,6 +162,105 @@ body {
 }
 
 
+.gameOutcome {
+    margin-top: 5vh;
+    position: absolute;
+    height: 90vh;
+    width: 90%;
+    z-index: 100;
+    background-color: forestgreen;
+    border-radius: var(--corner-radius);
+    display: flex;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--maximum-width);
+    margin-bottom: 20%;
+
+}
+
+
+.stars {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    column-gap: 10px;
+
+
+}
+
+.star {
+    height: 100px;
+    width: 100px;
+}
+
+.starPlus {
+    height: calc(100px * 1.1);
+    width: calc(100px * 1.1);
+    position: relative;
+    bottom: 15%;
+    color: white;
+
+}
+
+.smodesTitleOutcome {
+    font-family: var(--star-Wars);
+    color: white;
+    margin: 0.6em auto;
+    font-size: 48pt;
+    text-align: center;
+    line-height: 1.1em;
+}
+
+.imageOutcomeContainer {
+
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageOutcome {
+
+    height: 200px;
+    width: 200px;
+    margin-right: 20px;
+
+}
+
+
+
+.outcomeText {
+    margin-top: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.paragraphClass {
+    color: white;
+    line-height: 1.5rem;
+    text-align: justify;
+    font-family: var(--preferred-font);
+}
+.replay {
+
+    margin-top: 50px;
+    color: white;
+    font-family: var(--preferred-font);
+    font-size: 20pt;
+}
+
+/* Animation */
 
 .activePopOut {
     animation: activePopOut 1s infinite linear;

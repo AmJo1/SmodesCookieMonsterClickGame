@@ -5,6 +5,8 @@ let updateSeconds;
 const originalTimerText = parseInt(document.querySelector('.timerCounter').innerText);
 const gameMapData = cookieGenerator();
 
+const gameOutcomeTextOne = "Through his relentless pursuit, he achieves the impossible: gathering an abundance of chocolate resources sufficient to thwart the oppressive grip of the Empire. With his mission accomplished, Smodes ensures that civilization need no longer fear the Empire's tyranny. His strategic indulgence in chocolate not only fuels his strength but also becomes a symbol of hope and freedom for all who oppose the Empire's reign. As the galaxy celebrates his triumph, Smodes stands as a testament to resilience, proving that even the sweetest cravings can lead to the most heroic victories."
+
 //*********************************Functions*********************************
 
 
