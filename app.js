@@ -51,9 +51,50 @@ const gameOutcomeTextThree = "With each step, Smodes faced trials and adversarie
             updateSeconds.style.cssText = "color: white; font-size: 18pt";
             finalTimerCounter.innerText = 0;
             smodes.classList.remove('smodes')
-            console.log('game has ended. Has smodes disappeared??')
-            const getScoreCounterText = document.querySelector('.cookieCounterText');
-            console.log(getScoreCounterText.innerText);
+
+            const getFinalScore = parseInt(document.querySelector('.cookieCounterText').innerHTML);
+            const percentageCalculation = (getFinalScore / parseInt(originalTimerText)) * 100;
+            const smodesOutcomeTitle = document.querySelector('.smodesTitleOutcome');
+            const smodesOutcomeText = document.querySelector('.smodesOutcomeText');
+            const gameOutcomeScreen = document.querySelector('.gameOutcome');
+
+
+            console.log(percentageCalculation)
+            console.log(typeof percentageCalculation)
+
+
+            if (percentageCalculation < 33) {
+
+
+                console.log(gameOutcomeScreen);
+                gameOutcomeScreen.classList.remove('hidden');
+                smodesOutcomeTitle.innerText = gameOutcomeTitleThree;
+                smodesOutcomeText.innerText = gameOutcomeTextThree;
+
+                // Change the star icon ratings: this output is one star
+                // Fix the width of the text
+                // Change outcome image
+
+
+            }
+
+            else if (percentageCalculation >= 33 && percentageCalculation <= 66) {
+                smodesOutcomeTitle.innerText = gameOutcomeTitleTwo;
+                smodesOutcomeText.innerText = gameOutcomeTextTwo;
+            }
+
+            else if (percentageCalculation >= 66 && percentageCalculation > 66) {
+                smodesOutcomeTitle.innerText = gameOutcomeTitleOne;
+                smodesOutcomeText.innerText = gameOutcomeTextOne;
+            }
+
+            else console.log("Something went wrong");
+
+
+
+
+
+            // Add final logic here
 
 
 
@@ -193,6 +234,17 @@ function scoreCheck(scoreTally) {
     }
 }
 
+
+//*********************************Game Outcome*********************************
+
+const gameOutcome= function(score) {
+
+     console.log("Starting Timer" + originalTimerText)
+     console.log("user score " + score)
+     console.log("final time " + updateSeconds)
+
+
+}
 
 //*********************************Overlap Check*********************************
 
@@ -338,8 +390,6 @@ keyPress().then(() => {
     setTimeout(function(){
         moveCharacter();
         countdownTimer();
-        console.log(cookieScore)
     }, 1)
 
 });
-
