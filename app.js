@@ -5,7 +5,20 @@ let updateSeconds;
 const originalTimerText = parseInt(document.querySelector('.timerCounter').innerText);
 const gameMapData = cookieGenerator();
 
-const gameOutcomeTextOne = "Through his relentless pursuit, he achieves the impossible: gathering an abundance of chocolate resources sufficient to thwart the oppressive grip of the Empire. With his mission accomplished, Smodes ensures that civilization need no longer fear the Empire's tyranny. His strategic indulgence in chocolate not only fuels his strength but also becomes a symbol of hope and freedom for all who oppose the Empire's reign. As the galaxy celebrates his triumph, Smodes stands as a testament to resilience, proving that even the sweetest cravings can lead to the most heroic victories."
+const gameOutcomeTitleOne = "Smodes: The Choc Wielding Jedi Races to Pole Position";
+const gameOutcomeTextOne = "Through his relentless pursuit, he achieves the impossible: gathering an abundance of chocolate resources sufficient to thwart the oppressive grip of the Empire. " +
+    "With his mission accomplished, Smodes ensures that civilization need no longer fear the Empire's tyranny. His strategic indulgence in chocolate not only fuels his strength but also becomes a " +
+    "symbol of hope and freedom for all who oppose the Empire's reign. As the galaxy celebrates his triumph, Smodes stands as a testament to resilience, proving that even the sweetest cravings can " +
+    "lead to the most heroic victories.";
+const gameOutcomeTitleTwo = "Smodes: Jedi Connoisseur of the Sweet Rebellion";
+const gameOutcomeTextTwo = "Smodes falls short of fully completing his mission. His valiant efforts force the Empire to retreat. In recognition of his bravery and dedication, Smodes is rewarded " +
+    "with a sweet indulgence—a delectable ice cream treat. Not to upset Smodes, Grandfather Yoda assures Smodes of an unlimited supply of chocolate, promising to fuel his resolve for future battles against " +
+    "the forces of darkness. With renewed determination and a taste of victory, Smodes is ready to stand as a beacon of hope for the galaxy again.";
+const gameOutcomeTitleThree = "Smodes: A Jedi's Journey Through Defeat and Hope";
+const gameOutcomeTextThree = "With each step, Smodes faced trials and adversaries, his determination unwavering even in the face of overwhelming odds. Yet, despite his valiant efforts, victory remained elusive. " +
+    "The Empire's forces seemed endless, their reach stretching far beyond what Smodes had anticipated. Defeated but not broken, Smodes retreated, he found solace in the knowledge that his efforts had not been in vain. " +
+    "Though he had not achieved victory, he had inspired hope in the hearts of those who had dared to defy the Empire's tyranny. For even in defeat, Smodes knew that the spirit of rebellion burned bright, fueling the hope of " +
+    "a galaxy yearning for freedom. And though the taste of victory may elude him for now, Smodes remained determined to one day savor the sweet triumph of liberation.";
 
 //*********************************Functions*********************************
 
@@ -325,6 +338,7 @@ keyPress().then(() => {
     setTimeout(function(){
         moveCharacter();
         countdownTimer();
+        console.log(cookieScore)
     }, 1)
 
 });

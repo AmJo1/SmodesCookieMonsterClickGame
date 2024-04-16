@@ -190,13 +190,14 @@ body {
     align-items: center;
     position: relative;
     column-gap: 10px;
+    margin-top: 5vh;
 
 
 }
 
 .star {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
 }
 
 .starPlus {
@@ -211,8 +212,8 @@ body {
 .smodesTitleOutcome {
     font-family: var(--star-Wars);
     color: white;
-    margin: 0.6em auto;
-    font-size: 48pt;
+    margin: 1em auto;
+    font-size: 24pt;
     text-align: center;
     line-height: 1.1em;
 }
@@ -227,10 +228,8 @@ body {
 }
 
 .imageOutcome {
-
-    height: 200px;
-    width: 200px;
-    margin-right: 20px;
+    height: 175px;
+    width: 175px;
 
 }
 
@@ -254,7 +253,8 @@ body {
 }
 .replay {
 
-    margin-top: 50px;
+    margin-top: 60px;
+    margin-bottom: 40px;
     color: white;
     font-family: var(--preferred-font);
     font-size: 20pt;
